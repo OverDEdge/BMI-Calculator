@@ -16,6 +16,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender gender = Gender.male;
   var height = 180;
+  var weight = 70;
   var minHeight = 120.0;
   var maxHeight = 220.0;
 
@@ -105,7 +106,10 @@ class _InputPageState extends State<InputPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: labelTopPadding),
+                    padding: const EdgeInsets.only(
+                      top: labelTopPadding,
+                      bottom: labelBottomPadding,
+                    ),
                     child: Text(heightText, style: _textStyle),
                   ),
                   Row(
@@ -119,19 +123,15 @@ class _InputPageState extends State<InputPage> {
                       ),
                       Text(
                         heightUnit,
-                        style: labelTextStyle.copyWith(
-                          color: Theme.of(context).textSelectionColor,
-                        ),
+                        style: _textStyle,
                       ),
                     ],
                   ),
-                  SingleChildScrollView(
-                    child: HeightSlider(
-                      height: height,
-                      minHeight: minHeight,
-                      maxHeight: maxHeight,
-                      updateHeight: updateHeight,
-                    ),
+                  HeightSlider(
+                    height: height,
+                    minHeight: minHeight,
+                    maxHeight: maxHeight,
+                    updateHeight: updateHeight,
                   ),
                 ],
               ),
@@ -146,6 +146,22 @@ class _InputPageState extends State<InputPage> {
                   child: InputCard(
                     color: activeCardColor,
                     gestureFunction: () {},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: labelTopPadding,
+                            bottom: labelBottomPadding,
+                          ),
+                          child: Text(weightText, style: _textStyle),
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: numberTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(

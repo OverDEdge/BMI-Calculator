@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-const double labelTopPadding = 15.0,
+const double labelTopPadding = 10.0,
+    labelBottomPadding = 8.0,
     bottomGenderCardPadding = 20.0,
     textToIconGenderCardPadding = 8.0,
     labelTextFontSize = 16.0,
@@ -30,9 +31,10 @@ const Color customPrimaryColor = Color(0xFF0A0D22),
 
 const String appBarTitle = 'BMI CALCULATOR',
     heightText = 'HEIGHT',
+    weightText = 'WEIGHT',
     heightUnit = ' cm';
 
-const int cardFlex = 2, calcBmiFlex = 1;
+const int cardFlex = 4, calcBmiFlex = 2, sliderCardFlex = 5;
 
 enum Gender { male, female }
 
