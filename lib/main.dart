@@ -1,9 +1,11 @@
+import 'package:bmi_calculator/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './input_page.dart';
 import './theme_model.dart';
 import './app_themes.dart';
+import './result_page.dart';
 
 void main() => runApp(
       ChangeNotifierProvider<ThemeModel>(
@@ -20,7 +22,11 @@ class BMICalculator extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: notifier.customThemeActive ? customTheme : darkTheme,
-          home: InputPage(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => InputPage(),
+            '/bmi_result': (context) => ResultPage(),
+          },
         );
       },
     );

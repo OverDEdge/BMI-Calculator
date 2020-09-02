@@ -23,7 +23,9 @@ const double labelTopPadding = 10.0,
     iconButtonWidth = 45.0,
     iconButtonHeight = 45.0,
     iconButtonGapWidth = 12.0,
-    iconButtonBorderRadius = 8.0;
+    iconButtonBorderRadius = 8.0,
+    bmiCalcTextFontSize = 25.0,
+    calcBmiBottomPadding = 10.0;
 
 const Color customPrimaryColor = Color(0xFF0A0D22),
     customScaffoldBgColor = Color(0xFF0A0D22),
@@ -55,4 +57,9 @@ const labelTextStyle = TextStyle(
 const numberTextStyle = TextStyle(
   fontSize: numberTextFontSize,
   fontWeight: FontWeight.w900,
+);
+
+const bmiCalcTextStyle = TextStyle(
+  fontSize: bmiCalcTextFontSize,
+  fontWeight: FontWeight.bold,
 );

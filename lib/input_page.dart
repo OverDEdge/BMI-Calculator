@@ -81,6 +81,9 @@ class _InputPageState extends State<InputPage> {
     TextStyle _numberTextStyle = numberTextStyle.copyWith(
       color: Theme.of(context).cardColor,
     );
+    TextStyle _bmiCalcTextStyle = bmiCalcTextStyle.copyWith(
+      color: Theme.of(context).cardColor,
+    );
     var calcBmiColor = Theme.of(context).buttonColor;
 
     return Scaffold(
@@ -197,13 +200,21 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   flex: calcBmiFlex,
-                  child: Container(
-                    width: double.infinity,
-                    color: calcBmiColor,
-                    margin: EdgeInsets.only(top: calcBmiTopMargin),
-                    child: Text(
-                      'Test',
-                      textAlign: TextAlign.center,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/bmi_result');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: calcBmiBottomPadding),
+                      width: double.infinity,
+                      color: calcBmiColor,
+                      margin: EdgeInsets.only(top: calcBmiTopMargin),
+                      child: Center(
+                        child: Text(
+                          'CALCULATE',
+                          style: _bmiCalcTextStyle,
+                        ),
+                      ),
                     ),
                   ),
                 ),
