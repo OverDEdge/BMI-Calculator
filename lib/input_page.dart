@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/age_weight_card.dart';
 import 'package:bmi_calculator/height_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +9,7 @@ import './theme_tile.dart';
 import './gender_card.dart';
 import './constants.dart';
 import './height_slider.dart';
-import './round_icon_button.dart';
+import './age_weight_card.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _InputPageState extends State<InputPage> {
   Gender gender = Gender.male;
   var height = 180;
   var weight = 70;
+  var age = 40;
   var minHeight = 120.0;
   var maxHeight = 220.0;
 
@@ -31,7 +33,7 @@ class _InputPageState extends State<InputPage> {
         gender = Gender.male;
         minHeight = maleMinHeight;
         maxHeight = maleMaxHeight;
-      } else {
+      } else if (selectedGender == Gender.female) {
         gender = Gender.female;
         minHeight = femaleMinHeight;
         maxHeight = femaleMaxHeight;
@@ -41,6 +43,26 @@ class _InputPageState extends State<InputPage> {
         height = maxHeight.round();
       } else if (height < minHeight) {
         height = minHeight.round();
+      }
+    });
+  }
+
+  void updateProperty(Property property, NumberChange changeAction) {
+    setState(() {
+      int change;
+
+      // Set change depending on user action
+      if (changeAction == NumberChange.increment) {
+        change = 1;
+      } else if (changeAction == NumberChange.decrement) {
+        change = -1;
+      }
+
+      // Change the property user clicked
+      if (property == Property.weight) {
+        weight += change;
+      } else if (property == Property.age) {
+        age += change;
       }
     });
   }
@@ -55,6 +77,9 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     TextStyle _textStyle = labelTextStyle.copyWith(
       color: Theme.of(context).textSelectionColor,
+    );
+    TextStyle _numberTextStyle = numberTextStyle.copyWith(
+      color: Theme.of(context).cardColor,
     );
     var calcBmiColor = Theme.of(context).buttonColor;
 
@@ -118,7 +143,10 @@ class _InputPageState extends State<InputPage> {
                             top: labelTopPadding,
                             bottom: labelBottomPadding,
                           ),
-                          child: Text(heightText, style: _textStyle),
+                          child: Text(
+                            heightText,
+                            style: _textStyle,
+                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +155,7 @@ class _InputPageState extends State<InputPage> {
                           children: <Widget>[
                             Text(
                               height.toString(),
-                              style: numberTextStyle,
+                              style: _numberTextStyle,
                             ),
                             Text(
                               heightUnit,
@@ -151,41 +179,17 @@ class _InputPageState extends State<InputPage> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: InputCard(
-                          color: activeCardColor,
-                          gestureFunction: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: labelTopPadding,
-                                  bottom: labelBottomPadding,
-                                ),
-                                child: Text(weightText, style: _textStyle),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: numberBottomPadding),
-                                child: Text(
-                                  weight.toString(),
-                                  style: numberTextStyle,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  RoundIconButton(),
-                                  RoundIconButton(),
-                                ],
-                              )
-                            ],
-                          ),
+                        child: AgeWeightCard(
+                          property: Property.weight,
+                          propertyValue: weight,
+                          updateProperty: updateProperty,
                         ),
                       ),
                       Expanded(
-                        child: InputCard(
-                          color: activeCardColor,
-                          gestureFunction: () {},
+                        child: AgeWeightCard(
+                          property: Property.age,
+                          propertyValue: age,
+                          updateProperty: updateProperty,
                         ),
                       ),
                     ],

@@ -8,6 +8,7 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
   textSelectionColor: Colors.blueAccent[100],
   scaffoldBackgroundColor: darkBgColor,
   primaryColor: darkBgColor,
+  cardColor: Color(0xFFa9f5c5),
 );
 
 ThemeData customTheme = ThemeData.dark().copyWith(
@@ -24,4 +25,5 @@ ThemeData customTheme = ThemeData.dark().copyWith(
   ),
   buttonColor: customButtonColor,
   textSelectionColor: customTextSelectionColor,
+  cardColor: Colors.white,
 );

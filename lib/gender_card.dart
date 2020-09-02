@@ -27,6 +27,7 @@ class GenderCard extends StatelessWidget {
       fit: BoxFit.fill,
       child: Icon(
         genderIcon,
+        color: Theme.of(context).cardColor,
       ),
     );
 
