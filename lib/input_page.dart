@@ -1,12 +1,14 @@
 import 'package:bmi_calculator/height_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:math';
 
 import './input_card.dart';
 import './theme_tile.dart';
 import './gender_card.dart';
 import './constants.dart';
 import './height_slider.dart';
+import './round_icon_button.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -63,89 +65,51 @@ class _InputPageState extends State<InputPage> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ThemeTile(),
-          Expanded(
-            flex: cardFlex,
-            child: Row(
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tightFor(
+                height: max(screenMinHeight, constraints.maxHeight)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                ThemeTile(),
                 Expanded(
-                  child: InputCard(
-                    child: GenderCard(
-                      gender: 'MALE',
-                      genderIcon: FontAwesomeIcons.mars,
-                    ),
-                    color: gender == Gender.male
-                        ? activeCardColor
-                        : inactiveCardColor,
-                    gestureFunction: () => updateGender(Gender.male),
-                  ),
-                ),
-                Expanded(
-                  child: InputCard(
-                    child: GenderCard(
-                      gender: 'FEMALE',
-                      genderIcon: FontAwesomeIcons.venus,
-                    ),
-                    color: gender == Gender.female
-                        ? activeCardColor
-                        : inactiveCardColor,
-                    gestureFunction: () => updateGender(Gender.female),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: cardFlex,
-            child: InputCard(
-              color: activeCardColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: labelTopPadding,
-                      bottom: labelBottomPadding,
-                    ),
-                    child: Text(heightText, style: _textStyle),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: <Widget>[
-                      Text(
-                        height.toString(),
-                        style: numberTextStyle,
+                  flex: cardFlex,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InputCard(
+                          child: GenderCard(
+                            gender: 'MALE',
+                            genderIcon: FontAwesomeIcons.mars,
+                          ),
+                          color: gender == Gender.male
+                              ? activeCardColor
+                              : inactiveCardColor,
+                          gestureFunction: () => updateGender(Gender.male),
+                        ),
                       ),
-                      Text(
-                        heightUnit,
-                        style: _textStyle,
+                      Expanded(
+                        child: InputCard(
+                          child: GenderCard(
+                            gender: 'FEMALE',
+                            genderIcon: FontAwesomeIcons.venus,
+                          ),
+                          color: gender == Gender.female
+                              ? activeCardColor
+                              : inactiveCardColor,
+                          gestureFunction: () => updateGender(Gender.female),
+                        ),
                       ),
                     ],
                   ),
-                  HeightSlider(
-                    height: height,
-                    minHeight: minHeight,
-                    maxHeight: maxHeight,
-                    updateHeight: updateHeight,
-                  ),
-                ],
-              ),
-              gestureFunction: () {},
-            ),
-          ),
-          Expanded(
-            flex: cardFlex,
-            child: Row(
-              children: [
+                ),
                 Expanded(
+                  flex: cardFlex,
                   child: InputCard(
                     color: activeCardColor,
-                    gestureFunction: () {},
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -154,39 +118,96 @@ class _InputPageState extends State<InputPage> {
                             top: labelTopPadding,
                             bottom: labelBottomPadding,
                           ),
-                          child: Text(weightText, style: _textStyle),
+                          child: Text(heightText, style: _textStyle),
                         ),
-                        Text(
-                          weight.toString(),
-                          style: numberTextStyle,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(
+                              height.toString(),
+                              style: numberTextStyle,
+                            ),
+                            Text(
+                              heightUnit,
+                              style: _textStyle,
+                            ),
+                          ],
+                        ),
+                        HeightSlider(
+                          height: height,
+                          minHeight: minHeight,
+                          maxHeight: maxHeight,
+                          updateHeight: updateHeight,
                         ),
                       ],
                     ),
+                    gestureFunction: () {},
                   ),
                 ),
                 Expanded(
-                  child: InputCard(
-                    color: activeCardColor,
-                    gestureFunction: () {},
+                  flex: cardFlex,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InputCard(
+                          color: activeCardColor,
+                          gestureFunction: () {},
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: labelTopPadding,
+                                  bottom: labelBottomPadding,
+                                ),
+                                child: Text(weightText, style: _textStyle),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: numberBottomPadding),
+                                child: Text(
+                                  weight.toString(),
+                                  style: numberTextStyle,
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  RoundIconButton(),
+                                  RoundIconButton(),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: InputCard(
+                          color: activeCardColor,
+                          gestureFunction: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: calcBmiFlex,
+                  child: Container(
+                    width: double.infinity,
+                    color: calcBmiColor,
+                    margin: EdgeInsets.only(top: calcBmiTopMargin),
+                    child: Text(
+                      'Test',
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Expanded(
-            flex: calcBmiFlex,
-            child: Container(
-              width: double.infinity,
-              color: calcBmiColor,
-              margin: EdgeInsets.only(top: calcBmiTopMargin),
-              child: Text(
-                'Test',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      ),
+        );
+      }),
     );
   }
 }

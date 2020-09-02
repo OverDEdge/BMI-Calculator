@@ -41,7 +41,7 @@ class GenderCard extends StatelessWidget {
               child: genderIconBox),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: bottomGenderCardPadding),
+          padding: EdgeInsets.only(bottom: bottomCardPadding),
           child: genderText,
         ),
       ],

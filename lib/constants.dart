@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 const double labelTopPadding = 10.0,
     labelBottomPadding = 8.0,
-    bottomGenderCardPadding = 20.0,
+    numberBottomPadding = 10.0,
+    bottomCardPadding = 20.0,
     textToIconGenderCardPadding = 8.0,
     labelTextFontSize = 16.0,
     numberTextFontSize = 35.0,
@@ -17,7 +18,8 @@ const double labelTopPadding = 10.0,
     femaleMaxHeight = 200.0,
     thumbRadius = 12.0,
     thumbOverlayRadius = 24.0,
-    thumbOverlayOpacity = 0.25;
+    thumbOverlayOpacity = 0.25,
+    screenMinHeight = 650;
 
 const Color customPrimaryColor = Color(0xFF0A0D22),
     customScaffoldBgColor = Color(0xFF0A0D22),
