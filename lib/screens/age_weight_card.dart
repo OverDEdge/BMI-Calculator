@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import './constants.dart';
-import 'round_icon_button.dart';
-import 'input_card.dart';
+import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/components/round_icon_button.dart';
+import './input_card.dart';
 
 class AgeWeightCard extends StatelessWidget {
   final Property property;
@@ -35,7 +35,8 @@ class AgeWeightCard extends StatelessWidget {
               top: labelTopPadding,
               bottom: labelBottomPadding,
             ),
-            child: Text(weightText, style: _textStyle),
+            child: Text(property == Property.weight ? weightText : ageText,
+                style: _textStyle),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: numberBottomPadding),

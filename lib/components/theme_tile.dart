@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './theme_model.dart';
-
-import './constants.dart';
+import 'package:bmi_calculator/theme_model.dart';
+import 'package:bmi_calculator/constants.dart';
 
 class ThemeTile extends StatelessWidget {
   @override

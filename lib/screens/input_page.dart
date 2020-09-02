@@ -1,14 +1,15 @@
-import 'package:bmi_calculator/age_weight_card.dart';
-import 'package:bmi_calculator/height_slider.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/result_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math';
 
+import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/components/theme_tile.dart';
+import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/components/height_slider.dart';
 import './input_card.dart';
-import './theme_tile.dart';
 import './gender_card.dart';
-import './constants.dart';
-import './height_slider.dart';
 import './age_weight_card.dart';
 
 class InputPage extends StatefulWidget {
@@ -81,10 +82,6 @@ class _InputPageState extends State<InputPage> {
     TextStyle _numberTextStyle = numberTextStyle.copyWith(
       color: Theme.of(context).cardColor,
     );
-    TextStyle _bmiCalcTextStyle = bmiCalcTextStyle.copyWith(
-      color: Theme.of(context).cardColor,
-    );
-    var calcBmiColor = Theme.of(context).buttonColor;
 
     return Scaffold(
       appBar: AppBar(
@@ -200,22 +197,24 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   flex: calcBmiFlex,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/bmi_result');
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: calcBmiBottomPadding),
-                      width: double.infinity,
-                      color: calcBmiColor,
-                      margin: EdgeInsets.only(top: calcBmiTopMargin),
-                      child: Center(
-                        child: Text(
-                          'CALCULATE',
-                          style: _bmiCalcTextStyle,
+                  child: BottomButton(
+                    text: 'CALCULATE',
+                    route: () {
+                      CalculatorBrain calc = CalculatorBrain(
+                        height: height,
+                        weight: weight,
+                      );
+                      Navigator.pushNamed(
+                        context,
+                        '/bmi_result',
+                        // Pass arguments to Result Page
+                        arguments: ResultArguments(
+                          bmi: calc.calculateBmi(),
+                          result: calc.getResult(),
+                          advice: calc.getAdvice(),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
               ],

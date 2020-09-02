@@ -1,11 +1,14 @@
-import 'package:bmi_calculator/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './input_page.dart';
+import './screens/input_page.dart';
 import './theme_model.dart';
 import './app_themes.dart';
-import './result_page.dart';
+import './screens/result_page.dart';
+
+/*
+App Icon by: https://icons8.com/
+*/
 
 void main() => runApp(
       ChangeNotifierProvider<ThemeModel>(
